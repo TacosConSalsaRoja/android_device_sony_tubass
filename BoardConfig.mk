@@ -1,0 +1,151 @@
+# Device path
+LOCAL_PATH := device/sony/tubass
+
+# Device board elements
+include $(LOCAL_PATH)/board/*.mk
+
+# Device vendor board
+-include vendor/sony/tubass/BoardConfigVendor.mk
+
+# Kernel
+TARGET_KMODULES := true
+COMMON_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK
+
+# Disable memcpy opt (for audio libraries)
+TARGET_CPU_MEMCPY_OPT_DISABLE := true
+
+# EGL
+BOARD_EGL_CFG := $(LOCAL_PATH)/configs/egl.cfg
+USE_OPENGL_RENDERER := true
+BOARD_EGL_WORKAROUND_BUG_10194508 := true
+TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
+
+# Mediatek support
+BOARD_USES_MTK_HARDWARE := true
+
+# Flags
+COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
+
+# Fonts
+EXTENDED_FONT_FOOTPRINT := true
+
+# init
+TARGET_PROVIDES_INIT_RC := true
+
+# system.prop
+TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop
+
+# Vold
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/soc/11270000.usb3/musb-hdrc/gadget/lun%d/file
+
+BOARD_SEPOLICY_DIRS += \
+   device/sony/tubass/sepolicy
+
+# Disable memcpy opt (for audio libraries)
+TARGET_CPU_MEMCPY_OPT_DISABLE := true
+
+# MTK Hardware
+BOARD_USES_MTK_HARDWARE := true
+BOARD_USES_LEGACY_MTK_AV_BLOB := true
+BOARD_USES_MTK_AUDIO := true
+TARGET_HAS_LEGACY_CAMERA_HAL1 := true
+USE_CAMERA_STUB := true
+BOARD_PROVIDES_RILD := true
+BOARD_USE_SOFT_GATEKEEPER := true
+TARGET_SPECIFIC_CAMERA_PARAMETER_LIBRARY := libcamera_parameters_mtk
+
+BOARD_DISABLE_HW_ID_MATCH_CHECK := true
+SUPPRESS_MTK_AUDIO_BLOB_ERR_MSG := true
+
+# Deodex
+WITH_DEXPREOPT := false
+
+# Enable Minikin text layout engine (will be the default soon)
+USE_MINIKIN := true
+
+# Fonts
+EXTENDED_FONT_FOOTPRINT := true
+
+# Bluetooth
+BOARD_HAVE_BLUETOOTH := true
+BOARD_BLUETOOTH_DOES_NOT_USE_RFKILL := true
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
+
+# GPS
+BOARD_GPS_LIBRARIES := true
+BOARD_CONNECTIVITY_MODULE := conn_soc 
+BOARD_MEDIATEK_USES_GPS := true
+
+# MTK_WLAN_SUPPORT
+BOARD_WLAN_DEVICE		 := MediaTek
+BOARD_CONNECTIVITY_VENDOR        := MediaTek
+WPA_SUPPLICANT_VERSION           := VER_0_8_X
+BOARD_HOSTAPD_DRIVER             := NL80211
+BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_mt66xx
+BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_mt66xx
+WIFI_DRIVER_FW_PATH_PARAM        := "/dev/wmtWifi"
+WIFI_DRIVER_FW_PATH_STA          := STA
+WIFI_DRIVER_FW_PATH_AP           := AP
+WIFI_DRIVER_FW_PATH_P2P          := P2P
+WIFI_DRIVER_STATE_CTRL_PARAM	 := "/dev/wmtWifi"
+WIFI_DRIVER_STATE_ON		 := 1
+WIFI_DRIVER_STATE_OFF		 := 0
+
+# LED Path
+BOARD_RED_LED_PATH	:= "/sys/class/leds/test-led"
+BOARD_GREEN_LED_PATH	:= "/sys/class/leds/greenled"
+#BOARD_BLUE_LED_PATH	:= ""
+
+# Kernel informations
+BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
+BOARD_KERNEL_BASE := 0x40078000
+BOARD_KERNEL_PAGESIZE := 2048
+BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 androidboot.selinux=permissive
+BOARD_MKBOOTIMG_ARGS := --board 1465391499 --ramdisk_offset 0x04f88000 --second_offset 0x00e88000 --tags_offset 0x03f88000
+
+# Kernel properties
+TARGET_KERNEL_SOURCE := kernel/sony/tubass
+TARGET_KERNEL_ARCH := arm64
+TARGET_KERNEL_HEADER_ARCH := arm64
+TARGET_KERNEL_CONFIG := tubass_defconfig
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
+
+# Partitions informations
+BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16777216
+BOARD_CACHEIMAGE_PARTITION_SIZE := 452984832
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2684354560
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 27879521280
+BOARD_FLASH_BLOCK_SIZE := 131072
+
+# Partitions types
+TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_F2FS := true
+
+# Platform
+TARGET_BOARD_PLATFORM := mt6755
+
+# Architecture
+TARGET_ARCH := arm64
+TARGET_ARCH_VARIANT := armv8-a
+TARGET_CPU_ABI := arm64-v8a
+TARGET_CPU_ABI2 :=
+TARGET_CPU_VARIANT := cortex-a53
+
+TARGET_2ND_ARCH := arm
+TARGET_2ND_ARCH_VARIANT := armv7-a-neon
+TARGET_2ND_CPU_ABI := armeabi-v7a
+TARGET_2ND_CPU_ABI2 := armeabi
+TARGET_2ND_CPU_VARIANT := cortex-a53
+
+TARGET_BOARD_SUFFIX := _64
+TARGET_BOARD_PLATFORM_GPU := mali-t860mp2
+TARGET_USES_64_BIT_BINDER := true
+
+# Architecture Extensions
+TARGET_CPU_SMP := true
+ARCH_ARM_HAVE_NEON := true
+ARCH_ARM_HAVE_TLS_REGISTER := true
+ARCH_ARM_HAVE_VFP := true
+
